@@ -130,14 +130,23 @@ class MobileUIEnvironment:
     def is_goal_complete(self, goal):
 
         goal_type = goal["type"]
-
+    
         if goal_type == "note_created":
             return goal["title"] in self.state.notes
-
+    
         if goal_type == "focus_mode_enabled":
             return self.state.focus_mode is True
-
+    
         if goal_type == "notifications_disabled":
             return self.state.notifications is False
-
+    
+        if goal_type == "screen_open":
+            return self.state.screen == goal["screen"]
+    
+        if goal_type == "username_found":
+            return self.state.screen == "profile"
+    
+        if goal_type == "email_found":
+            return self.state.screen == "profile"
+    
         return False

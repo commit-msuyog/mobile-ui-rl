@@ -1,7 +1,7 @@
 {
   "train": [
     {
-      "task_id": "task_001",
+      "task_id": "train_001",
       "instruction": "Create a note titled Buy milk",
       "goal": {
         "type": "note_created",
@@ -10,25 +10,7 @@
       "max_steps": 8
     },
     {
-      "task_id": "task_002",
-      "instruction": "Enable focus mode",
-      "goal": {
-        "type": "focus_mode_enabled"
-      },
-      "max_steps": 5
-    },
-    {
-      "task_id": "task_003",
-      "instruction": "Disable notifications",
-      "goal": {
-        "type": "notifications_disabled"
-      },
-      "max_steps": 5
-    }
-  ],
-  "eval": [
-    {
-      "task_id": "task_021",
+      "task_id": "train_002",
       "instruction": "Create a note titled Study RL",
       "goal": {
         "type": "note_created",
@@ -37,7 +19,35 @@
       "max_steps": 8
     },
     {
-      "task_id": "task_022",
+      "task_id": "train_003",
+      "instruction": "Create a note titled Finish assignment",
+      "goal": {
+        "type": "note_created",
+        "title": "Finish assignment"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_004",
+      "instruction": "Create a note titled Call home",
+      "goal": {
+        "type": "note_created",
+        "title": "Call home"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_005",
+      "instruction": "Create a note titled Submit project",
+      "goal": {
+        "type": "note_created",
+        "title": "Submit project"
+      },
+      "max_steps": 8
+    },
+
+    {
+      "task_id": "train_006",
       "instruction": "Enable focus mode",
       "goal": {
         "type": "focus_mode_enabled"
@@ -45,12 +55,215 @@
       "max_steps": 5
     },
     {
-      "task_id": "task_023",
+      "task_id": "train_007",
       "instruction": "Disable notifications",
       "goal": {
         "type": "notifications_disabled"
       },
       "max_steps": 5
+    },
+    {
+      "task_id": "train_008",
+      "instruction": "Open the settings screen",
+      "goal": {
+        "type": "screen_open",
+        "screen": "settings"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "train_009",
+      "instruction": "Open the profile screen",
+      "goal": {
+        "type": "screen_open",
+        "screen": "profile"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "train_010",
+      "instruction": "Find the username in the profile",
+      "goal": {
+        "type": "username_found"
+      },
+      "max_steps": 4
+    },
+
+    {
+      "task_id": "train_011",
+      "instruction": "Find the email in the profile",
+      "goal": {
+        "type": "email_found"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "train_012",
+      "instruction": "Turn on focus mode",
+      "goal": {
+        "type": "focus_mode_enabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "train_013",
+      "instruction": "Turn off notifications",
+      "goal": {
+        "type": "notifications_disabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "train_014",
+      "instruction": "Open settings from the home screen",
+      "goal": {
+        "type": "screen_open",
+        "screen": "settings"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "train_015",
+      "instruction": "Go to the profile page",
+      "goal": {
+        "type": "screen_open",
+        "screen": "profile"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "train_016",
+      "instruction": "Make a note called Gym at 6 PM",
+      "goal": {
+        "type": "note_created",
+        "title": "Gym at 6 PM"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_017",
+      "instruction": "Create a note titled Buy groceries",
+      "goal": {
+        "type": "note_created",
+        "title": "Buy groceries"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_018",
+      "instruction": "Create a note titled Read documentation",
+      "goal": {
+        "type": "note_created",
+        "title": "Read documentation"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_019",
+      "instruction": "Create a note titled Practice Python",
+      "goal": {
+        "type": "note_created",
+        "title": "Practice Python"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_020",
+      "instruction": "Create a note titled Review code",
+      "goal": {
+        "type": "note_created",
+        "title": "Review code"
+      },
+      "max_steps": 8
+    }
+  ],
+
+  "eval": [
+    {
+      "task_id": "eval_001",
+      "instruction": "Create a note titled Prepare presentation",
+      "goal": {
+        "type": "note_created",
+        "title": "Prepare presentation"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "eval_002",
+      "instruction": "Create a note titled Read research paper",
+      "goal": {
+        "type": "note_created",
+        "title": "Read research paper"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "eval_003",
+      "instruction": "Enable focus mode",
+      "goal": {
+        "type": "focus_mode_enabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "eval_004",
+      "instruction": "Disable notifications",
+      "goal": {
+        "type": "notifications_disabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "eval_005",
+      "instruction": "Open the settings screen",
+      "goal": {
+        "type": "screen_open",
+        "screen": "settings"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "eval_006",
+      "instruction": "Open the profile screen",
+      "goal": {
+        "type": "screen_open",
+        "screen": "profile"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "eval_007",
+      "instruction": "Find the username in the profile",
+      "goal": {
+        "type": "username_found"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "eval_008",
+      "instruction": "Find the email in the profile",
+      "goal": {
+        "type": "email_found"
+      },
+      "max_steps": 4
+    },
+    {
+      "task_id": "eval_009",
+      "instruction": "Create a note titled Deploy MVP",
+      "goal": {
+        "type": "note_created",
+        "title": "Deploy MVP"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "eval_010",
+      "instruction": "Create a note titled Check GitHub",
+      "goal": {
+        "type": "note_created",
+        "title": "Check GitHub"
+      },
+      "max_steps": 8
     }
   ]
 }
