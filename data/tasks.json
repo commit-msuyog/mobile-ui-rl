@@ -1,0 +1,56 @@
+{
+  "train": [
+    {
+      "task_id": "task_001",
+      "instruction": "Create a note titled Buy milk",
+      "goal": {
+        "type": "note_created",
+        "title": "Buy milk"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "task_002",
+      "instruction": "Enable focus mode",
+      "goal": {
+        "type": "focus_mode_enabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "task_003",
+      "instruction": "Disable notifications",
+      "goal": {
+        "type": "notifications_disabled"
+      },
+      "max_steps": 5
+    }
+  ],
+  "eval": [
+    {
+      "task_id": "task_021",
+      "instruction": "Create a note titled Study RL",
+      "goal": {
+        "type": "note_created",
+        "title": "Study RL"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "task_022",
+      "instruction": "Enable focus mode",
+      "goal": {
+        "type": "focus_mode_enabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "task_023",
+      "instruction": "Disable notifications",
+      "goal": {
+        "type": "notifications_disabled"
+      },
+      "max_steps": 5
+    }
+  ]
+}

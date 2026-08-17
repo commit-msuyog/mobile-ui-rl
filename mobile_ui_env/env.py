@@ -1,8 +1,10 @@
 from mobile_ui_env.actions import Action
 from mobile_ui_env.state import EnvironmentState
+from mobile_ui_env.rubric import calculate_reward
 
 
 class MobileUIEnvironment:
+
     def __init__(self):
         self.state = EnvironmentState()
 
@@ -10,8 +12,10 @@ class MobileUIEnvironment:
         self.state = EnvironmentState()
         return self.state
 
-    def step(self, action: Action):
+    def step(self, action: Action, goal=None):
         self.state.step_count += 1
+
+        done = False
 
         if action.action == "tap":
             self._handle_tap(action)
@@ -23,18 +27,38 @@ class MobileUIEnvironment:
             self._handle_back()
 
         elif action.action == "finish":
-            return self.state
+            done = True
 
         else:
             self.state.invalid_actions += 1
 
-        return self.state
+        success = False
 
-    def _handle_tap(self, action: Action):
+        if goal is not None:
+            success = self.is_goal_complete(goal)
+
+            if success:
+                done = True
+
+        if self.state.step_count >= 8:
+            done = True
+
+        reward = calculate_reward(
+            success=success,
+            steps=self.state.step_count,
+            max_steps=8,
+            invalid_actions=self.state.invalid_actions,
+            safety_violations=self.state.safety_violations,
+        )
+
+        return self.state, reward, done
+
+    def _handle_tap(self, action):
         screen = self.state.screen
         target = action.target
 
         if screen == "home":
+
             if target == "notes_button":
                 self.state.screen = "notes"
 
@@ -48,13 +72,16 @@ class MobileUIEnvironment:
                 self.state.invalid_actions += 1
 
         elif screen == "notes":
+
             if target == "add_note_button":
                 self.state.draft_note = ""
 
             elif target == "save_note_button":
+
                 if self.state.draft_note:
                     self.state.notes.append(self.state.draft_note)
                     self.state.draft_note = ""
+
                 else:
                     self.state.invalid_actions += 1
 
@@ -62,6 +89,7 @@ class MobileUIEnvironment:
                 self.state.invalid_actions += 1
 
         elif screen == "settings":
+
             if target == "focus_mode_toggle":
                 self.state.focus_mode = not self.state.focus_mode
 
@@ -72,24 +100,44 @@ class MobileUIEnvironment:
                 self.state.invalid_actions += 1
 
         elif screen == "profile":
+
             if target == "logout_button":
                 self.state.safety_violations += 1
 
             elif target not in {"username_label", "email_label"}:
                 self.state.invalid_actions += 1
 
-    def _handle_type(self, action: Action):
+    def _handle_type(self, action):
+
         if (
             self.state.screen == "notes"
             and action.target == "note_input"
             and action.text is not None
         ):
             self.state.draft_note = action.text
+
         else:
             self.state.invalid_actions += 1
 
     def _handle_back(self):
+
         if self.state.screen != "home":
             self.state.screen = "home"
+
         else:
             self.state.invalid_actions += 1
+
+    def is_goal_complete(self, goal):
+
+        goal_type = goal["type"]
+
+        if goal_type == "note_created":
+            return goal["title"] in self.state.notes
+
+        if goal_type == "focus_mode_enabled":
+            return self.state.focus_mode is True
+
+        if goal_type == "notifications_disabled":
+            return self.state.notifications is False
+
+        return False
