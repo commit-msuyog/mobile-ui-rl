@@ -30,10 +30,10 @@ def calculate_reward(
     safety_violations,
     progress=0.0,
 ):
-    reward = 0.0
+    if not success:
+        return 0.0
 
-    if success:
-        reward += 0.75
+    reward = 0.75
 
     reward += 0.15 * efficiency_reward(steps, max_steps)
     reward += 0.10 * partial_progress_reward(progress)
