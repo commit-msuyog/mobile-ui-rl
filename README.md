@@ -1,44 +1,127 @@
 # Mobile UI RL Environment
 
-A lightweight, symbolic Reinforcement Learning (RL) environment that simulates interacting with a mobile application. 
+A lightweight, symbolic Reinforcement Learning (RL) environment where an agent completes mobile UI tasks using structured actions (`tap`, `type`, `back`, and `finish`).
 
-Designed for rapid prototyping and educational purposes, this project bypasses the heavy overhead of real Android emulators (like Appium or OCR). Instead, it provides a clean, symbolic UI where an agent receives text-based instructions and executes simple structured actions to reach a goal.
+This project is a 24-hour prototype focused on building and testing the core RL environment loop:
+`Task → State → Action → State Change → Reward → Goal Check`
+
+It does not use a heavy Android emulator or train an actual RL model. The main objective was to engineer a robust, bug-free environment that handles states, actions, and rewards correctly.
 
 ---
 
-## Core Concept
+## 📱 Core Concept
 
-The mock application consists of four primary screens: **Home**, **Notes**, **Settings**, and **Profile**. 
+The mock application consists of four screens: **Home**, **Notes**, **Settings**, and **Profile**.
 
-An agent navigates and interacts with the app using four distinct actions:
-* `tap` (requires a target element)
-* `type` (requires a target input and text string)
-* `back` (navigates to the previous screen)
-* `finish` (ends the episode)
+An agent receives a natural language task (e.g., *"Create a note titled 'Buy milk'"*) and must interact with the app to achieve that goal. 
 
-**The Interaction Loop:**
-1. **Task Given:** e.g., *"Create a note titled 'Buy milk'"*
-2. **Step:** The agent outputs an action.
-3. **Environment Update:** The environment validates the action, updates the mock state (current screen, active notes, step count), and evaluates the goal.
-4. **Reward:** A reward is calculated and returned alongside the new state.
+For every action the agent takes, the environment:
+1. Validates if the action is possible.
+2. Updates the internal state.
+3. Checks if the final task goal is met.
+4. Calculates the reward or penalty.
+5. Decides whether to continue or end the episode.
 
-##  Reward System
+---
 
-The environment is designed to teach an agent to complete tasks quickly, safely, and accurately using a mix of sparse and shaped rewards:
+## 🏗️ Environment Architecture
 
-* **Task Success:** The primary reward (scaled between 0 and 1) is sparse. It is only awarded if the specific task goal is achieved.
-* **Efficiency Bonus:** If the task is successful, a small bonus is added for completing it in fewer steps. *(Note: Failed tasks receive no efficiency bonus to prevent reward hacking).*
-* **Penalties:** Points are deducted for invalid actions (e.g., trying to tap a button that isn't on the current screen) and safety violations (e.g., triggering an unsafe logout action).
+### 1. State Space
+Instead of raw pixels or screenshots, the environment uses a small, deterministic symbolic state. The state vector includes:
+* **Current Screen:** `home`, `notes`, `settings`, or `profile`
+* **App Data:** Saved notes and the current draft note content
+* **System Toggles:** Focus mode and notification status
+* **Episode Metrics:** Current step count, invalid actions, and safety violations
 
-## Task Dataset
+This keeps the environment lightweight while retaining all necessary data for transitions and goal verification.
 
-The project ships with a built-in JSON dataset (`data/tasks.json`) containing **30 tasks** total:
-* **20 Training Tasks**
-* **10 Evaluation Tasks**
+### 2. Action Space
+The agent navigates using four structured JSON actions:
+* `tap(target)`: Interacts with a specific UI element.
+* `type(target, text)`: Inputs text into a specific field.
+* `back()`: Returns to the previous screen.
+* `finish()`: Manually ends the episode.
 
-Each task defines a specific instruction, a target goal state, and a maximum step limit (`max_steps`). The environment will automatically terminate the episode if the task is completed, if the agent calls `finish`, or if the step limit is reached.
+If an agent attempts an impossible action (like tapping a `save` button while on the Home screen), the environment catches it as an invalid action, penalizes it, and continues without crashing.
 
-##  Quick Start
+### 3. Episode Termination
+An episode ends under three conditions:
+* **Goal Reached:** The requested task is successfully completed.
+* **Agent Finishes:** The agent explicitly calls the `finish` action.
+* **Timeout:** The episode hits the task's `max_steps` limit (preventing infinite loops).
+
+---
+
+## 🎯 Reward System
+
+The reward system is carefully designed to encourage task completion while penalizing bad behavior.
+
+### Sparse Rewards (Primary)
+The main success signal is sparse. A task only receives the success reward (scaled 0 to 1) when the exact final goal is reached. Getting "closer" to the goal (e.g., opening the Notes app or typing text) yields zero success reward.
+
+### Dense & Shaped Rewards
+Smaller signals are used to guide behavior along the way:
+* **Efficiency (Bonus):** Successful tasks receive a small bonus based on how few steps were used.
+* **Invalid Actions (Penalty):** A negative reward is immediately applied for attempting actions that don't make sense on the current screen.
+* **Safety Violations (Penalty):** A stronger negative reward is applied for explicitly unsafe behavior (like triggering a user logout).
+
+### Preventing Reward Hacking
+Reward shaping can lead to exploits. For instance, if the efficiency reward was granted regardless of the outcome, an agent might learn to instantly call `finish()` on step 1 to maximize efficiency points without actually doing the work. To prevent this, the efficiency component is **only** added after a successful task completion. 
+
+---
+
+## Dataset & Evaluation
+### Dataset
+
+![Dataset Size](screenshots/datasize.png)
+
+**The Dataset** (`data/tasks.json`) contains 30 tasks total:
+* 20 Training Tasks
+* 10 Evaluation Tasks
+
+### Evaluation Output
+
+![Evaluation Output](screenshots/evaluation.png)
+**The Evaluation Baseline** runs a deterministic heuristic script (`run_eval.py`). It uses predefined valid action patterns to navigate the environment. 
+* *Note: The baseline currently achieves a 100% success rate. This is meant to validate that the environment mechanics, state transitions, and reward logic work perfectly. It is not evidence of a trained RL model.*
+
+---
+
+## 🧪 Testing
+
+The project uses `pytest` for unit testing the environment. Currently, **13/13 tests pass**.
+
+The test suite covers:
+* Action creation and screen navigation
+* Note creation workflows
+* Invalid action catching
+* Profile navigation and focus mode toggles
+* Reward calculation and safety penalties
+
+*(Debugging Example: Testing caught a bug where failed tasks were accidentally receiving an efficiency reward. I refactored the logic to ensure efficiency is only rewarded upon actual success.)*
+
+---
+
+## 🚀 Scaling & Future Integration
+
+**Scaling to a Real Android Emulator:**
+The symbolic state used in this prototype can be swapped out. To use a real device, the environment would hook into an Android Emulator, replacing the state space with Accessibility Trees (XML hierarchy), Screenshots, and OCR. Actions would map to real ADB (Android Debug Bridge) or Appium commands.
+
+**Prime Intellect / Verifiers / PRIME-RL:**
+The modular design makes this easy to plug into larger frameworks. A `load_environment()` function can be added to expose the environment to Verifiers. The existing 20/10 dataset split maps cleanly to evaluation pipelines, and PRIME-RL can eventually be used to train an LLM policy against this exact environment logic.
+
+---
+
+## ⚖️ Scope and Tradeoffs
+
+Because this was a strict 24-hour prototype, explicit engineering tradeoffs were made to ensure a stable MVP:
+* **Symbolic UI over Real Android:** I bypassed the heavy setup, rendering delays, and flakiness of an Android emulator to focus 100% on getting the RL logic right.
+* **Small Dataset:** Hand-crafted 30 high-quality tasks rather than automating a massive, noisy dataset. 
+* **Deterministic Baseline:** Used a heuristic script to test the environment rather than spending hours training a fragile baseline RL policy, which was out of scope.
+
+---
+
+## 💻 Quick Start
 
 **1. Clone the repository**
 ```bash
@@ -46,14 +129,14 @@ git clone <repository-url>
 cd mobile-ui-rl
 ```
 
-**2. Set up a virtual environment**
+**2. Create a virtual environment**
 ```bash
 python -m venv venv311
 
-# Mac/Linux:
-source venv311/bin/activate
 # Windows PowerShell:
 .\venv311\Scripts\Activate.ps1
+# Mac/Linux:
+source venv311/bin/activate
 ```
 
 **3. Install the project**
@@ -70,34 +153,29 @@ pytest
 ```bash
 python run_eval.py
 ```
-*Note: The current evaluation script runs a deterministic heuristic baseline. It acts as a sanity check to prove the environment handles states, valid actions, and rewards correctly (currently achieving a 100% success rate).*
 
-##  Project Structure
+## 📁 Project Structure
 
 ```text
 mobile-ui-rl/
-├── mobile_ui_env/       # Core environment logic
+├── mobile_ui_env/
 │   ├── __init__.py
-│   ├── env.py           # reset() and step() logic
+│   ├── env.py
 │   ├── state.py
 │   ├── actions.py
 │   ├── dataset.py
-│   └── rubric.py        # Reward and penalty calculations
+│   └── rubric.py
 ├── data/
-│   └── tasks.json       # Train/Eval dataset
-├── tests/               # Pytest suite (13/13 passing)
+│   └── tasks.json
+├── tests/
 │   ├── test_actions.py
 │   ├── test_rewards.py
 │   └── test_env.py
-├── run_eval.py          # Baseline evaluation script
-└── pyproject.toml
+├── screenshots/
+│   ├── datasize.png
+│   └── evaluation.png
+├── run_eval.py
+├── pyproject.toml
+├── README.md
+└── AI_USAGE.md
 ```
-
-## 🗺️ Scope & Next Steps
-
-This repository is currently a **24-hour MVP** focused on establishing a clean RL environment loop (State → Action → Reward). It intentionally excludes heavy dependencies like LLM-based action generation, distributed training, or pixel-level screenshot understanding.
-
-**Future Roadmap:**
-* Connect the environment logic to an actual Android Emulator using Accessibility Trees and UI hierarchies.
-* Integrate with the **Verifiers** framework (`load_environment()`).
-* Train a true RL agent to generalize across unseen UI layouts.
