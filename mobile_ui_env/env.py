@@ -9,6 +9,7 @@ class MobileUIEnvironment:
         self.state = EnvironmentState()
 
     def reset(self):
+        # Fresh state for every new episode.
         self.state = EnvironmentState()
         return self.state
 
@@ -17,6 +18,7 @@ class MobileUIEnvironment:
 
         done = False
 
+        # Route the action to its handler.
         if action.action == "tap":
             self._handle_tap(action)
 
@@ -30,6 +32,7 @@ class MobileUIEnvironment:
             done = True
 
         else:
+            # Bad actions should not crash the env.
             self.state.invalid_actions += 1
 
         success = False
@@ -40,6 +43,7 @@ class MobileUIEnvironment:
             if success:
                 done = True
 
+        # Hard limit for the current MVP.
         if self.state.step_count >= 8:
             done = True
 
@@ -53,7 +57,12 @@ class MobileUIEnvironment:
 
         return self.state, reward, done
 
+
+    
+
     def _handle_tap(self, action):
+
+        # handles tap actions
         screen = self.state.screen
         target = action.target
 
@@ -107,8 +116,11 @@ class MobileUIEnvironment:
             elif target not in {"username_label", "email_label"}:
                 self.state.invalid_actions += 1
 
+
+
     def _handle_type(self, action):
 
+        # handles text input
         if (
             self.state.screen == "notes"
             and action.target == "note_input"
@@ -119,16 +131,21 @@ class MobileUIEnvironment:
         else:
             self.state.invalid_actions += 1
 
-    def _handle_back(self):
 
+
+    def _handle_back(self):
+        # handles back navigation
         if self.state.screen != "home":
             self.state.screen = "home"
 
         else:
             self.state.invalid_actions += 1
 
+
+
     def is_goal_complete(self, goal):
 
+        # checks whether the task is complete
         goal_type = goal["type"]
     
         if goal_type == "note_created":
