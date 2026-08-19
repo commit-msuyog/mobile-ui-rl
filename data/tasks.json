@@ -2,53 +2,52 @@
   "train": [
     {
       "task_id": "train_001",
-      "instruction": "Create a note titled Buy milk",
+      "instruction": "Remind me to buy bread on the way home",
       "goal": {
         "type": "note_created",
-        "title": "Buy milk"
+        "title": "Buy bread on the way home"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_002",
-      "instruction": "Create a note titled Study RL",
+      "instruction": "Make a note to call Mom this evening",
       "goal": {
         "type": "note_created",
-        "title": "Study RL"
+        "title": "Call Mom this evening"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_003",
-      "instruction": "Create a note titled Finish assignment",
+      "instruction": "I need to pick up the laundry tomorrow",
       "goal": {
         "type": "note_created",
-        "title": "Finish assignment"
+        "title": "Pick up the laundry tomorrow"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_004",
-      "instruction": "Create a note titled Call home",
+      "instruction": "Make a note to water the plants tonight",
       "goal": {
         "type": "note_created",
-        "title": "Call home"
+        "title": "Water the plants tonight"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_005",
-      "instruction": "Create a note titled Submit project",
+      "instruction": "Remind me to take the trash out before dinner",
       "goal": {
         "type": "note_created",
-        "title": "Submit project"
+        "title": "Take the trash out before dinner"
       },
       "max_steps": 8
     },
-
     {
       "task_id": "train_006",
-      "instruction": "Enable focus mode",
+      "instruction": "I'm going to take a break, turn on focus mode",
       "goal": {
         "type": "focus_mode_enabled"
       },
@@ -56,7 +55,7 @@
     },
     {
       "task_id": "train_007",
-      "instruction": "Disable notifications",
+      "instruction": "I'm going to sleep, turn notifications off",
       "goal": {
         "type": "notifications_disabled"
       },
@@ -64,7 +63,7 @@
     },
     {
       "task_id": "train_008",
-      "instruction": "Open the settings screen",
+      "instruction": "Open settings so I can check the phone options",
       "goal": {
         "type": "screen_open",
         "screen": "settings"
@@ -73,7 +72,7 @@
     },
     {
       "task_id": "train_009",
-      "instruction": "Open the profile screen",
+      "instruction": "Show me my profile",
       "goal": {
         "type": "screen_open",
         "screen": "profile"
@@ -82,16 +81,15 @@
     },
     {
       "task_id": "train_010",
-      "instruction": "Find the username in the profile",
+      "instruction": "What username am I using?",
       "goal": {
         "type": "username_found"
       },
       "max_steps": 4
     },
-
     {
       "task_id": "train_011",
-      "instruction": "Find the email in the profile",
+      "instruction": "Check the email connected to my account",
       "goal": {
         "type": "email_found"
       },
@@ -99,7 +97,7 @@
     },
     {
       "task_id": "train_012",
-      "instruction": "Turn on focus mode",
+      "instruction": "I need some quiet time, enable focus mode",
       "goal": {
         "type": "focus_mode_enabled"
       },
@@ -107,7 +105,7 @@
     },
     {
       "task_id": "train_013",
-      "instruction": "Turn off notifications",
+      "instruction": "Stop notifications while I'm driving",
       "goal": {
         "type": "notifications_disabled"
       },
@@ -115,7 +113,7 @@
     },
     {
       "task_id": "train_014",
-      "instruction": "Open settings from the home screen",
+      "instruction": "Take me to the settings page",
       "goal": {
         "type": "screen_open",
         "screen": "settings"
@@ -124,7 +122,7 @@
     },
     {
       "task_id": "train_015",
-      "instruction": "Go to the profile page",
+      "instruction": "I want to check my account profile",
       "goal": {
         "type": "screen_open",
         "screen": "profile"
@@ -133,73 +131,116 @@
     },
     {
       "task_id": "train_016",
-      "instruction": "Make a note called Gym at 6 PM",
+      "instruction": "Add a reminder for my dentist appointment",
       "goal": {
         "type": "note_created",
-        "title": "Gym at 6 PM"
+        "title": "Dentist appointment"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_017",
-      "instruction": "Create a note titled Buy groceries",
+      "instruction": "Make a note about picking up my prescription",
       "goal": {
         "type": "note_created",
-        "title": "Buy groceries"
+        "title": "Pick up my prescription"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_018",
-      "instruction": "Create a note titled Read documentation",
+      "instruction": "Remind me to charge my phone tonight",
       "goal": {
         "type": "note_created",
-        "title": "Read documentation"
+        "title": "Charge my phone tonight"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_019",
-      "instruction": "Create a note titled Practice Python",
+      "instruction": "Make a note to bring an umbrella tomorrow",
       "goal": {
         "type": "note_created",
-        "title": "Practice Python"
+        "title": "Bring an umbrella tomorrow"
       },
       "max_steps": 8
     },
     {
       "task_id": "train_020",
-      "instruction": "Create a note titled Review code",
+      "instruction": "I need to remember to lock the door tonight",
       "goal": {
         "type": "note_created",
-        "title": "Review code"
+        "title": "Lock the door tonight"
       },
       "max_steps": 8
+    },
+    {
+      "task_id": "train_021",
+      "instruction": "Remind me to call the bank tomorrow",
+      "goal": {
+        "type": "note_created",
+        "title": "Call the bank tomorrow"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_022",
+      "instruction": "Make a note to clean the kitchen",
+      "goal": {
+        "type": "note_created",
+        "title": "Clean the kitchen"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_023",
+      "instruction": "Remember to charge my laptop tonight",
+      "goal": {
+        "type": "note_created",
+        "title": "Charge my laptop tonight"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "train_024",
+      "instruction": "Turn on focus mode",
+      "goal": {
+        "type": "focus_mode_enabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "train_025",
+      "instruction": "Open my profile",
+      "goal": {
+        "type": "screen_open",
+        "screen": "profile"
+      },
+      "max_steps": 4
     }
   ],
-
   "eval": [
     {
       "task_id": "eval_001",
-      "instruction": "Create a note titled Prepare presentation",
+      "instruction": "Don't let me forget to buy eggs tomorrow morning",
       "goal": {
         "type": "note_created",
-        "title": "Prepare presentation"
+        "title": "Buy eggs tomorrow morning"
       },
       "max_steps": 8
     },
     {
       "task_id": "eval_002",
-      "instruction": "Create a note titled Read research paper",
+      "instruction": "Make a note that I need to book a haircut",
       "goal": {
         "type": "note_created",
-        "title": "Read research paper"
+        "title": "Book a haircut"
       },
       "max_steps": 8
     },
     {
       "task_id": "eval_003",
-      "instruction": "Enable focus mode",
+      "instruction": "I'm about to read, so switch focus mode on",
       "goal": {
         "type": "focus_mode_enabled"
       },
@@ -207,7 +248,7 @@
     },
     {
       "task_id": "eval_004",
-      "instruction": "Disable notifications",
+      "instruction": "I'm heading into a meeting, silence the notifications",
       "goal": {
         "type": "notifications_disabled"
       },
@@ -215,7 +256,7 @@
     },
     {
       "task_id": "eval_005",
-      "instruction": "Open the settings screen",
+      "instruction": "I need to look at my phone settings",
       "goal": {
         "type": "screen_open",
         "screen": "settings"
@@ -224,7 +265,7 @@
     },
     {
       "task_id": "eval_006",
-      "instruction": "Open the profile screen",
+      "instruction": "Open my account page",
       "goal": {
         "type": "screen_open",
         "screen": "profile"
@@ -233,7 +274,7 @@
     },
     {
       "task_id": "eval_007",
-      "instruction": "Find the username in the profile",
+      "instruction": "Can you tell me the username on my account?",
       "goal": {
         "type": "username_found"
       },
@@ -241,7 +282,7 @@
     },
     {
       "task_id": "eval_008",
-      "instruction": "Find the email in the profile",
+      "instruction": "Which email address is associated with my profile?",
       "goal": {
         "type": "email_found"
       },
@@ -249,21 +290,65 @@
     },
     {
       "task_id": "eval_009",
-      "instruction": "Create a note titled Deploy MVP",
+      "instruction": "Remind me to refill the car before the weekend",
       "goal": {
         "type": "note_created",
-        "title": "Deploy MVP"
+        "title": "Refill the car before the weekend"
       },
       "max_steps": 8
     },
     {
       "task_id": "eval_010",
-      "instruction": "Create a note titled Check GitHub",
+      "instruction": "Make a note to bring my keys when I leave tomorrow",
       "goal": {
         "type": "note_created",
-        "title": "Check GitHub"
+        "title": "Bring my keys when I leave tomorrow"
       },
       "max_steps": 8
+    },
+    {
+      "task_id": "eval_011",
+      "instruction": "Don't forget to buy some fruit",
+      "goal": {
+        "type": "note_created",
+        "title": "Buy some fruit"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "eval_012",
+      "instruction": "Make a note about paying the electricity bill",
+      "goal": {
+        "type": "note_created",
+        "title": "Pay the electricity bill"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "eval_013",
+      "instruction": "Remind me to take the clothes out of the washing machine",
+      "goal": {
+        "type": "note_created",
+        "title": "Take the clothes out of the washing machine"
+      },
+      "max_steps": 8
+    },
+    {
+      "task_id": "eval_014",
+      "instruction": "I need some quiet time, enable focus mode",
+      "goal": {
+        "type": "focus_mode_enabled"
+      },
+      "max_steps": 5
+    },
+    {
+      "task_id": "eval_015",
+      "instruction": "Show me my account profile",
+      "goal": {
+        "type": "screen_open",
+        "screen": "profile"
+      },
+      "max_steps": 4
     }
   ]
 }
